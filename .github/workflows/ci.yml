@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PIPENV_VENV_IN_PROJECT: enabled
+      COMMAND_EXECUTOR: http://localhost:4444/wd/hub
       ENT_USERNAME: ${{ secrets.ENT_USERNAME }}
       ENT_PASSWORD: ${{ secrets.ENT_PASSWORD }}
 
@@ -22,10 +23,6 @@ jobs:
         run: docker-compose up -d
       - name: Wait browser to be up
         run: until curl -I localhost:4444; do sleep 1; done
-      - name: Prepare environment
-        run: cp .env.example .env
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Scraps and parse
         run: pipenv run python main.py
       - name: Stop the browser remote
