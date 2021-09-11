@@ -16,9 +16,9 @@ def scrape_xls():
     driver.get(
         'https://cas.utt.fr/cas/login?service=https%3A%2F%2Fmoodle.utt.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS')
 
+    # Fill the login form
     username = driver.find_element_by_id('username')
     username.send_keys(environ.get('ENT_USERNAME'))
-
     password = driver.find_element_by_id('password')
     password.send_keys(environ.get('ENT_PASSWORD'))
 

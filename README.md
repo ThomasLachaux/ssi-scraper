@@ -1,7 +1,8 @@
 # SSI Scraper
 
-Scraper and parser for a school schedule
 [![Build Status](https://github.com/ThomasLachaux/ssi-scraper/actions/workflows/ci.yml/badge.svg)](https://github.com/ungdev/ThomasLachaux/ssi-scraper/actions)
+
+Scraper and parser for a school schedule
 
 ## Installation
 
