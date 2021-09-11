@@ -24,6 +24,8 @@ jobs:
         run: until curl -I localhost:4444; do sleep 1; done
       - name: Prepare environment
         run: cp .env.example .env
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Scraps and parse
         run: pipenv run python main.py
       - name: Stop the browser remote
