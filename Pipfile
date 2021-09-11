@@ -7,6 +7,9 @@ name = "pypi"
 pandas = "*"
 ics = "*"
 openpyxl = "*"
+selenium = "*"
+requests = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
