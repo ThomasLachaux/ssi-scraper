@@ -66,7 +66,7 @@ def make_ics(raw_xls):
     except IndexError:
         pass
 
-    with open('my.ics', 'w') as file:
+    with open('edt.ics', 'w') as file:
         calendar = str(calendar)
         calendar = calendar.replace('0000Z', '0000')
         file.write(calendar)

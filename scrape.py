@@ -38,7 +38,7 @@ def scrape_xls():
     # Ignore TLS errors because the DH Key on the server is too small
     requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
     request = session.get(
-        'https://moodle.utt.fr/mod/resource/view.php?id=58119&redirect=1')
+        'https://moodle.utt.fr/mod/resource/view.php?id=58119&redirect=1', allow_redirects=True)
 
     logger.info('Excel successfully downloaded')
 

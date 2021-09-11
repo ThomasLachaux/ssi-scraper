@@ -1,7 +1,12 @@
 import make_ics
+import filecmp
 import scrape
 import logging as logger
+from os import rename
 from dotenv import load_dotenv
+
+old_file_name = 'edt.xlsx'
+new_file_name = 'new-edt.xlsx'
 
 load_dotenv()
 logger.basicConfig(
@@ -13,5 +18,14 @@ for module in ['selenium.webdriver.remote.remote_connection', 'selenium', 'urlli
 
 xls = scrape.scrape_xls()
 
+with open(new_file_name, 'wb') as file:
+    file.write(xls)
 
-# make_ics.make_ics(xls)
+if not filecmp.cmp(old_file_name, new_file_name):
+    logger.warn('Excel changed, create a new ics file')
+    make_ics.make_ics(xls)
+
+else:
+    logger.info('Excel not changed')
+
+rename(new_file_name, old_file_name)
