@@ -13,8 +13,7 @@ def scrape_xls():
     driver = webdriver.Remote(command_executor=environ.get('COMMAND_EXECUTOR'),
                               desired_capabilities=DesiredCapabilities.CHROME)
     logger.debug('Authenticate to cas')
-    driver.get(
-        'https://cas.utt.fr/cas/login?service=https%3A%2F%2Fmoodle.utt.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS')
+    driver.get('https://cas.utt.fr/cas/login?service=https%3A%2F%2Fmoodle.utt.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS')
 
     # Fill the login form
     username = driver.find_element_by_id('username')
@@ -37,8 +36,7 @@ def scrape_xls():
 
     # Ignore TLS errors because the DH Key on the server is too small
     requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
-    request = session.get(
-        'https://moodle.utt.fr/mod/resource/view.php?id=58119&redirect=1', allow_redirects=True)
+    request = session.get('https://moodle.utt.fr/mod/resource/view.php?id=58119&redirect=1', allow_redirects=True)
 
     logger.info('Excel successfully downloaded')
 

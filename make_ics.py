@@ -1,9 +1,11 @@
 import pandas as pd
 import logging
 from ics import Calendar, Event
+from dateutil import tz
 import re
 
 logger = logging.getLogger(__name__)
+timezone = tz.gettz('Europe/Paris')
 
 
 def make_ics(raw_xls):
@@ -36,16 +38,15 @@ def make_ics(raw_xls):
                 startingDate = xls.iloc[day][0]
                 endingDate = xls.iloc[day][0]
 
-                startingDate = startingDate.replace(hour=slots[slot - 1])
-                endingDate = startingDate.replace(hour=slots[slot])
+                startingDate = startingDate.replace(hour=slots[slot - 1], tzinfo=timezone)
+                endingDate = startingDate.replace(hour=slots[slot], tzinfo=timezone)
 
                 # Assign the dates to the event
                 event.begin = startingDate
                 event.end = endingDate
 
                 events.append(event)
-                logger.debug(
-                    f'Create primitive event {event.name} - {event.location} [{event.begin}/{event.end}]')
+                logger.debug(f'Create primitive event {event.name} - {event.location} [{event.begin}/{event.end}]')
 
     calendar = Calendar()
 
@@ -60,8 +61,7 @@ def make_ics(raw_xls):
 
             beginEvent.end = events[j].end
             calendar.events.add(beginEvent)
-            logger.debug(
-                f'Create event {event.name} - {event.location} [{event.begin}/{event.end}]')
+            logger.debug(f'Create event {event.name} - {event.location} [{event.begin}/{event.end}]')
 
             i = j + 1
     except IndexError:
@@ -69,7 +69,9 @@ def make_ics(raw_xls):
 
     with open('edt.ics', 'w') as file:
         calendar = str(calendar)
-        calendar = calendar.replace('0000Z', '0000')
-        calendar = re.sub(
-            r'PRODID:.+', 'PRODID:SSI - https://github.com/ThomasLachaux/ssi-scraper', calendar)
+        calendar = re.sub(r'PRODID:.+', 'PRODID:SSI - https://github.com/ThomasLachaux/ssi-scraper', calendar)
         file.write(calendar)
+
+
+if __name__ == '__main__':
+    make_ics('new-edt.xlsx')

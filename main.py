@@ -9,8 +9,7 @@ old_file_name = 'edt.xlsx'
 new_file_name = 'new-edt.xlsx'
 
 load_dotenv()
-logger.basicConfig(
-    format='%(levelname)s %(module)s %(message)s', level=logger.DEBUG)
+logger.basicConfig(format='%(levelname)s %(module)s %(message)s', level=logger.DEBUG)
 
 # Change logging level for some verbose modules
 for module in ['selenium.webdriver.remote.remote_connection', 'selenium', 'urllib3.connectionpool']:
