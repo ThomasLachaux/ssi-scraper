@@ -29,6 +29,8 @@ jobs:
         run: pipenv run python main.py
       - name: Stop the browser remote
         run: docker-compose down
+      - name: Pull the repository
+        run: git pull --rebase
       - name: Try to make a commit if there is to
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
