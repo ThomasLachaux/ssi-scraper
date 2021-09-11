@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      PIPENV_VENV_IN_PROJECT: enabled
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+      # - run: pip3 install pipenv
+      # - run: pipenv install
+      # - run: docker-compose up -d
+      # - run: until curl -I localhost:4444; do sleep 1; done
+      # - run: cp .env.example .env
+      # - run: pipenv run python main.py
+      # - run: docker-compose down

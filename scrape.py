@@ -1,14 +1,17 @@
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from os import environ
 import requests
 import logging
+
 
 logger = logging.getLogger(__name__)
 
 
 def scrape_xls():
     logger.debug('Start web browser')
-    driver = webdriver.Chrome(environ.get('CHROMEDRIVER_LOCATION'))
+    driver = webdriver.Remote(command_executor=environ.get('COMMAND_EXECUTOR'),
+                              desired_capabilities=DesiredCapabilities.CHROME)
     logger.debug('Authenticate to cas')
     driver.get(
         'https://cas.utt.fr/cas/login?service=https%3A%2F%2Fmoodle.utt.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS')
