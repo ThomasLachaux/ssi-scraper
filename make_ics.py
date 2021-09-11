@@ -2,12 +2,13 @@ import pandas as pd
 import logging
 from ics import Calendar, Event
 from dateutil import tz
+import re
 
 logger = logging.getLogger(__name__)
 timezone = tz.gettz('Europe/Paris')
 
 
-def make_ics(raw_xls):
+def make_ics(raw_xls, ignoreUE=None):
     slots = [8, 9, 10, 12, 14, 16, 18]
     events = []
 
@@ -24,6 +25,10 @@ def make_ics(raw_xls):
                 # Create an event and give it a name
                 event = Event()
                 event.name = xls.iloc[day][slot]
+
+                # If this ue is blacklisted, ignore it and go to next event
+                if ignoreUE and re.search(ignoreUE, event.name, re.IGNORECASE):
+                    continue
 
                 # If the slot is on the morning, find the location on cell 7
                 if slot < 3:
@@ -70,8 +75,7 @@ def make_ics(raw_xls):
     except IndexError:
         pass
 
-    with open('edt.ics', 'w') as file:
-        file.write(str(calendar))
+    return str(calendar)
 
 
 if __name__ == '__main__':

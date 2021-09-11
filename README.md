@@ -15,4 +15,10 @@ pipenv run python main.py
 ```
 
 ## Add to Google Calendar
-Go to https://calendar.google.com/calendar/u/0/r/settings/addbyurl and add https://raw.githubusercontent.com/ThomasLachaux/ssi-scraper/master/edt.ics
+
+Go to https://calendar.google.com/calendar/u/0/r/settings/addbyurl and add either
+
+- https://raw.githubusercontent.com/ThomasLachaux/ssi-scraper/master/calendars/ssi-all.ics
+- https://raw.githubusercontent.com/ThomasLachaux/ssi-scraper/master/calendars/ssi-except-gs15.ics
+- https://raw.githubusercontent.com/ThomasLachaux/ssi-scraper/master/calendars/ssi-except-gs16.ics
+- https://raw.githubusercontent.com/ThomasLachaux/ssi-scraper/master/calendars/ssi-except-gs21.ics

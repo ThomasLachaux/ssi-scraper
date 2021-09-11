@@ -16,4 +16,15 @@ xls = scrape.scrape_xls()
 with open('edt.xlsx', 'wb') as file:
     file.write(xls)
 
-make_ics.make_ics(xls)
+for ue in [None, 'gs15', 'gs16', 'gs21']:
+    calendar = make_ics.make_ics(xls, ue)
+
+    name = ue
+    if not name:
+        name = 'all'
+    else:
+        name = f'except-{ue}'
+
+    with open(f'calendars/ssi-{name}.ics', 'w') as file:
+        logger.info(f'Write on calendars/{name}.ics')
+        file.write(calendar)

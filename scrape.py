@@ -32,6 +32,7 @@ def scrape_xls():
 
     session = requests.Session()
     for cookie in cookies:
+        logging.debug(f"Cookie {cookie['name']}: *****")
         session.cookies.set(cookie['name'], cookie['value'])
 
     # Ignore TLS errors because the DH Key on the server is too small
