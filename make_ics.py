@@ -60,6 +60,7 @@ def make_ics(raw_xls):
                 j += 1
 
             beginEvent.end = events[j].end
+            beginEvent.uid = f'{beginEvent.location}{str(beginEvent.begin)}'
             calendar.events.add(beginEvent)
             logger.debug(f'Create event {event.name} - {event.location} [{event.begin}/{event.end}]')
 

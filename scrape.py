@@ -41,3 +41,10 @@ def scrape_xls():
     logger.info('Excel successfully downloaded')
 
     return request.content
+
+
+if __name__ == '__main__':
+    xls = scrape_xls()
+
+    with open('new-edt.xlsx', 'wb') as file:
+        file.write(xls)
