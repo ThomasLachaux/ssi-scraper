@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 from ics import Calendar, Event
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -69,4 +70,6 @@ def make_ics(raw_xls):
     with open('edt.ics', 'w') as file:
         calendar = str(calendar)
         calendar = calendar.replace('0000Z', '0000')
+        calendar = re.sub(
+            r'PRODID:.+', 'PRODID:SSI - https://github.com/ThomasLachaux/ssi-scraper', calendar)
         file.write(calendar)

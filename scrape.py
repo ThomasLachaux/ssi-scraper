@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def scrape_xls():
-    logger.debug('Start web browser')
+    logger.debug('Connect to web browser')
     driver = webdriver.Remote(command_executor=environ.get('COMMAND_EXECUTOR'),
                               desired_capabilities=DesiredCapabilities.CHROME)
     logger.debug('Authenticate to cas')
