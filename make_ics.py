@@ -2,7 +2,6 @@ import pandas as pd
 import logging
 from ics import Calendar, Event
 from dateutil import tz
-import re
 
 logger = logging.getLogger(__name__)
 timezone = tz.gettz('Europe/Paris')
@@ -34,6 +33,9 @@ def make_ics(raw_xls):
                 else:
                     event.location = str(xls.iloc[day][8])
 
+                if event.location == 'nan':
+                    event.location = None
+
                 # Set the starting and ending dates
                 startingDate = xls.iloc[day][0]
                 endingDate = xls.iloc[day][0]
@@ -48,7 +50,7 @@ def make_ics(raw_xls):
                 events.append(event)
                 logger.debug(f'Create primitive event {event.name} - {event.location} [{event.begin}/{event.end}]')
 
-    calendar = Calendar()
+    calendar = Calendar(creator="SSI - https://github.com/ThomasLachaux/ssi-scraper")
 
     try:
         i = 0
@@ -60,7 +62,7 @@ def make_ics(raw_xls):
                 j += 1
 
             beginEvent.end = events[j].end
-            beginEvent.uid = f'{beginEvent.location}{str(beginEvent.begin)}'
+            beginEvent.uid = f'{beginEvent.name}{str(beginEvent.begin)}{str(beginEvent.end)}'
             calendar.events.add(beginEvent)
             logger.debug(f'Create event {event.name} - {event.location} [{event.begin}/{event.end}]')
 
@@ -69,9 +71,7 @@ def make_ics(raw_xls):
         pass
 
     with open('edt.ics', 'w') as file:
-        calendar = str(calendar)
-        calendar = re.sub(r'PRODID:.+', 'PRODID:SSI - https://github.com/ThomasLachaux/ssi-scraper', calendar)
-        file.write(calendar)
+        file.write(str(calendar))
 
 
 if __name__ == '__main__':
