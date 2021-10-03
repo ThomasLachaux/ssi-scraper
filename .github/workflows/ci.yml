@@ -34,8 +34,8 @@ jobs:
         run: git stash
       - name: Pull the repository
         run: git pull --rebase
-      - name: Pop the stash
-        run: git stash pop
+      - name: Pop the stash (ignore if there is nothing to pop)
+        run: git stash pop || true
       - name: Commit if needed
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
