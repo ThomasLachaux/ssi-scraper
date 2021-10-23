@@ -13,7 +13,7 @@ jobs:
       COMMAND_EXECUTOR: http://localhost:4444/wd/hub
       ENT_USERNAME: ${{ secrets.ENT_USERNAME }}
       ENT_PASSWORD: ${{ secrets.ENT_PASSWORD }}
-      RESOURCE_URL: https://moodle.utt.fr/mod/resource/view.php?id=60098&redirect=1
+      RESOURCE_URL: https://moodle.utt.fr/mod/resource/view.php?id=60188&redirect=1
 
     steps:
       - uses: actions/checkout@v2
