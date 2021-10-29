@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from os import environ
+from bs4 import BeautifulSoup
 import requests
 import logging
 
@@ -26,6 +27,7 @@ def scrape_xls():
     submit.click()
 
     driver.set_page_load_timeout(30)
+
     logger.debug('Callback fully loaded, get session cookies and quit')
     cookies = driver.get_cookies()
     driver.quit()
@@ -37,11 +39,19 @@ def scrape_xls():
 
     # Ignore TLS errors because the DH Key on the server is too small
     requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
-    request = session.get(environ.get('RESOURCE_URL'), allow_redirects=True)
+    response = session.get('https://moodle.utt.fr/course/view.php?id=1631', allow_redirects=True)
 
+    # Find the link attributed to the schedule
+    soup = BeautifulSoup(response.text, 'html.parser')
+    link = soup.find(text="Emploi du temps M2 SSI").parent.parent['href']
+    logger.info(f'Found the link {link}')
+
+
+    # Retrieve the file content
+    response = session.get(f'{link}&redirect=1', allow_redirects=True)
     logger.info('Excel successfully downloaded')
 
-    return request.content
+    return response.content
 
 
 if __name__ == '__main__':
