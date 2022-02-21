@@ -2,8 +2,9 @@ name: CI
 on:
   push:
     branches: [master]
-  schedule:
-    - cron: '0 0 * * *'
+  # I don't have access to the excel anymore. Feel free to fork the project
+  #schedule:
+  #  - cron: '0 0 * * *'
 
 jobs:
   build:
