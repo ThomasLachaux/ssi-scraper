@@ -11,6 +11,7 @@ selenium = "*"
 requests = "*"
 python-dotenv = "*"
 beautifulsoup4 = "*"
+argparse = "*"
 
 [dev-packages]
 

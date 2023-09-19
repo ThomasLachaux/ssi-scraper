@@ -43,14 +43,13 @@ def scrape_xls():
 
     # Find the link attributed to the schedule
     soup = BeautifulSoup(response.text, 'html.parser')
-    link = soup.find(text="Emploi du temps M2 SSI").parent.parent['href']
+    link = soup.find(text="Emploi du temps A23 - V1.3").parent.parent['href']
     logger.info(f'Found the link {link}')
 
 
     # Retrieve the file content
     response = session.get(f'{link}&redirect=1', allow_redirects=True)
     logger.info('Excel successfully downloaded')
-
     return response.content
 
 
